@@ -1,6 +1,7 @@
 import os
 import discord
 from discord import app_commands
+from discord.app_commands import checks
 from dotenv import load_dotenv
 
 # Get TOKEN
@@ -25,9 +26,24 @@ bot = Saladia()
 # Command "/server-update"
 @bot.tree.command(name="server-update", description="Start server update")
 @app_commands.describe(version="Wanted version (e.g.: 1.21.1)")
+@checks.has_role("saladia-admin")
 async def server_update(interaction: discord.Interaction, version: str):
-    # On répond à l'utilisateur
     await interaction.response.send_message(f"Server will update to version {version}")
+
+
+
+@bot.tree.error
+async def on_app_command_error(interaction: discord.Interaction, error: app_commands.AppCommandError):
+    if isinstance(error, app_commands.MissingRole):
+        await interaction.response.send_message(
+            f"You need **`saladia-admin'** role to execute this command.", 
+            ephemeral=False
+        )
+    else:
+        # Pour les autres types d'erreurs (bug code, etc.)
+        print(f"Error: {error}")
+        if not interaction.response.is_done():
+            await interaction.response.send_message("Something happened.", ephemeral=False)
 
 if TOKEN:
     bot.run(TOKEN)
