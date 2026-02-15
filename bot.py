@@ -39,7 +39,7 @@ async def server_update(interaction: discord.Interaction, version: str):
         # Launch the bash script as an asynchronous subprocess
         # stderr is redirected to stdout to capture all output in one stream
         process = await asyncio.create_subprocess_exec(
-            '/bin/bash', '/home/hoag/Documents/toto/minecraft/update-server.sh', version,
+            'sudo', '/bin/bash', '<SCRIPT_FILE>', version,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.STDOUT
         )
