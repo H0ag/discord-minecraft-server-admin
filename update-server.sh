@@ -2,7 +2,7 @@
 
 # --- Configuration ---
 # Define paths to avoid hardcoded relative paths
-SERVER_DIR="/home/hoag/Documents/toto/minecraft/labo"
+SERVER_DIR=""
 FERIUM_BIN="$SERVER_DIR/ferium"
 JAR_NAME="fabric-server-launch.jar"
 SERVICE_NAME="minecraft-saladia.service"
